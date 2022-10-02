@@ -1,14 +1,11 @@
-let box1 = document.querySelector("#box1");
-let box2 = document.querySelector("#box2");
-let box3 = document.querySelector("#box3");
-let box4 = document.querySelector("#box4");
+const box1 = document.querySelector("#box1");
+const box2 = document.querySelector("#box2");
+const box3 = document.querySelector("#box3");
+const box4 = document.querySelector("#box4");
+
+let scoreNo = document.querySelector(".score-no");
 
 let i = 0;
-
-let qbox1 = document.querySelector("#box1");
-let qbox2 = document.querySelector("#box2");
-let qbox3 = document.querySelector("#box3");
-let qbox4 = document.querySelector("#box4");
 
 let qText = document.querySelector(".question-text");
 
@@ -17,6 +14,26 @@ let allBoxes = document.querySelectorAll(".box");
 let score = 0;
 let highScore = 0;
 let questionNo = 0;
+let gameLost = false;
+let restartBtn = document.querySelector(".restartBtn");
+
+function restartGame() {
+  qText.textContent = "";
+  selectedCategory = "";
+  gameLost = true;
+  document.querySelector("body").style.backgroundColor = "#FF414D";
+  for (i = 0; i < boxArr.length; i++) {
+    boxArr[i].classList.add("box-invis");
+    boxArr[i].textContent = "";
+  }
+  restartBtn.classList.remove("box-invis");
+  restartBtn.addEventListener("click", function () {
+    qText.textContent = "Welcome to Bean Trivia";
+    restartBtn.classList.add("box-invis");
+    document.querySelector("body").style.backgroundColor = "#002d40";
+    categoryList();
+  });
+}
 
 let category = ["RAP", "TECH", "VIDEO GAMES", "HISTORY"];
 let selectedCategory = "";
@@ -55,57 +72,28 @@ const qa = {
 
 function categoryList() {
   for (i = 0; i < category.length; i++) {
-    console.log(category[i]);
+    boxArr[i].classList.remove("box-invis");
+    boxArr[i].textContent = category[i];
   }
+  box1.addEventListener("click", homeBtn);
+  box2.addEventListener("click", homeBtn);
+  box3.addEventListener("click", homeBtn);
+  box4.addEventListener("click", homeBtn);
 }
 
-function findAnswer1(ans) {
+function findAnswer(ans) {
   if (ans === qa.answer[rapQuestion.answerIdx[questionNo]]) {
-    console.log("The previous question was q" + questionNo);
     questionNo++;
     score++;
+    scoreNo.textContent = score;
+    console.log("The score now is " + score);
     console.log("The question no now is " + questionNo);
     boxRefresh();
   } else {
-    console.log("Not qbox1");
+    restartGame();
   }
 }
 
-function findAnswer2(ans) {
-  if (ans === qa.answer[rapQuestion.answerIdx[questionNo]]) {
-    console.log("The previous question was q" + questionNo);
-    questionNo++;
-    score++;
-    console.log("The question no now is " + questionNo);
-    boxRefresh();
-  } else {
-    console.log("Not qbox1");
-  }
-}
-
-function findAnswer3(ans) {
-  if (ans === qa.answer[rapQuestion.answerIdx[questionNo]]) {
-    console.log("The previous question was q" + questionNo);
-    questionNo++;
-    score++;
-    console.log("The question no now is " + questionNo);
-    boxRefresh();
-  } else {
-    console.log("Not qbox1");
-  }
-}
-
-function findAnswer4(ans) {
-  if (ans === qa.answer[questionNo]) {
-    console.log("The previous question was q" + questionNo);
-    questionNo++;
-    score++;
-    console.log("The question no now is " + questionNo);
-    boxRefresh();
-  } else {
-    console.log("Not qbox4");
-  }
-}
 //makes boxes disappear, reappear with the correct question/answer, and generates the question title text.
 function boxRefresh() {
   qa.question = rapQuestion.q[questionNo];
@@ -133,39 +121,19 @@ function boxRefresh() {
     qText.textContent = qa.question;
   }, 500);
 
-  qbox1.addEventListener("click", function (e) {
-    switch (selectedCategory) {
-      case "RAP":
-        console.log(e.target.textContent + " BABYYYY");
-        findAnswer1(e.target.innerHTML);
-        break;
-    }
+  box1.addEventListener("click", function (e) {
+    findAnswer(e.target.innerHTML);
   });
 
-  qbox2.addEventListener("click", function (e) {
-    switch (selectedCategory) {
-      case "RAP":
-        console.log(e.target.textContent + " BABYYYY");
-        findAnswer2(e.target.innerHTML);
-        break;
-    }
+  box2.addEventListener("click", function (e) {
+    findAnswer(e.target.innerHTML);
   });
 
-  qbox3.addEventListener("click", function (e) {
-    switch (selectedCategory) {
-      case "RAP":
-        console.log(e.target.textContent + " BABYYYY");
-        console.log(e.target);
-        findAnswer3(e.target.innerHTML);
-        break;
-    }
+  box3.addEventListener("click", function (e) {
+    findAnswer(e.target.innerHTML);
   });
-  qbox4.addEventListener("click", function (e) {
-    switch (selectedCategory) {
-      case "RAP":
-        console.log(e.target.textContent + " BABYYYY");
-        findAnswer4(e.target.innerHTML);
-    }
+  box4.addEventListener("click", function (e) {
+    findAnswer(e.target.innerHTML);
   });
 }
 
@@ -191,11 +159,6 @@ function homeBtn(e) {
 }
 
 box1.addEventListener("click", homeBtn);
-
 box2.addEventListener("click", homeBtn);
-
 box3.addEventListener("click", homeBtn);
-
 box4.addEventListener("click", homeBtn);
-
-categoryList();
