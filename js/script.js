@@ -3,7 +3,7 @@ let box2 = document.querySelector("#box2");
 let box3 = document.querySelector("#box3");
 let box4 = document.querySelector("#box4");
 
-let i;
+let i = 0;
 
 let qbox1 = document.querySelector("#box1");
 let qbox2 = document.querySelector("#box2");
@@ -45,6 +45,7 @@ let rapQuestion = {
     ["One Piece", "Dragon Ball Z", "Naruto", "Bleach"], //8
     ["Drake", "Chris Brown", "J. Cole", "Lil Baby"], //9
   ],
+  answerIdx: [0, 2, 2, 3, 1, 1, 2, 2, 1, 2],
 };
 
 const qa = {
@@ -59,7 +60,7 @@ function categoryList() {
 }
 
 function findAnswer1(ans) {
-  if (ans === qa.answer[questionNo]) {
+  if (ans === qa.answer[rapQuestion.answerIdx[questionNo]]) {
     console.log("The previous question was q" + questionNo);
     questionNo++;
     score++;
@@ -71,26 +72,26 @@ function findAnswer1(ans) {
 }
 
 function findAnswer2(ans) {
-  if (ans === qa.answer[questionNo]) {
+  if (ans === qa.answer[rapQuestion.answerIdx[questionNo]]) {
     console.log("The previous question was q" + questionNo);
     questionNo++;
     score++;
     console.log("The question no now is " + questionNo);
     boxRefresh();
   } else {
-    console.log("Not qbox2");
+    console.log("Not qbox1");
   }
 }
 
 function findAnswer3(ans) {
-  if (ans === qa.answer[questionNo]) {
+  if (ans === qa.answer[rapQuestion.answerIdx[questionNo]]) {
     console.log("The previous question was q" + questionNo);
     questionNo++;
     score++;
     console.log("The question no now is " + questionNo);
     boxRefresh();
   } else {
-    console.log("Not qbox3");
+    console.log("Not qbox1");
   }
 }
 
@@ -136,23 +137,26 @@ function boxRefresh() {
     switch (selectedCategory) {
       case "RAP":
         console.log(e.target.textContent + " BABYYYY");
-        findAnswer1(e.target.textContent);
+        findAnswer1(e.target.innerHTML);
         break;
     }
   });
+
   qbox2.addEventListener("click", function (e) {
     switch (selectedCategory) {
       case "RAP":
         console.log(e.target.textContent + " BABYYYY");
-        findAnswer2(qbox2.textContent);
+        findAnswer2(e.target.innerHTML);
         break;
     }
   });
+
   qbox3.addEventListener("click", function (e) {
     switch (selectedCategory) {
       case "RAP":
         console.log(e.target.textContent + " BABYYYY");
-        findAnswer3(qbox3.textContent);
+        console.log(e.target);
+        findAnswer3(e.target.innerHTML);
         break;
     }
   });
@@ -160,7 +164,7 @@ function boxRefresh() {
     switch (selectedCategory) {
       case "RAP":
         console.log(e.target.textContent + " BABYYYY");
-        findAnswer4();
+        findAnswer4(e.target.innerHTML);
     }
   });
 }
