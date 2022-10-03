@@ -20,12 +20,24 @@ body {
   width: 15px;
 }
 
+.hero-banner {
+  margin: 0 auto;
+  width: 40%;
+}
+
+.hero-banner img {
+  height: 500px;
+  width: 800px;
+}
 .boxes {
   display: flex;
   justify-content: center;
   align-items: center;
   width: 80%;
   margin: 0 auto;
+}
+.qa {
+  display: block;
 }
 
 .box {

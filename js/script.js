@@ -2,6 +2,10 @@ const box1 = document.querySelector("#box1");
 const box2 = document.querySelector("#box2");
 const box3 = document.querySelector("#box3");
 const box4 = document.querySelector("#box4");
+let bannerImg = document.querySelector(".banner-img");
+let instructionBox = document.querySelector(".question-text-desc");
+
+let gameStart = false;
 
 let htmlQuestionNo = document.querySelector(".question-no");
 
@@ -18,6 +22,7 @@ let gameLost = false;
 let restartBtn = document.querySelector(".restartBtn");
 
 let category = ["RAP", "TECH", "VIDEO GAMES", "HISTORY"];
+let rapPhotos = ["../img/club.jpg"];
 let selectedCategory = "";
 
 //rap category object
@@ -55,25 +60,26 @@ const qa = {
 };
 
 function restartGame() {
-  qText.textContent = "";
-  selectedCategory = "";
-  document.querySelector("body").style.backgroundColor = "#FF414D";
-  for (i = 0; i < boxArr.length; i++) {
-    boxArr[i].classList.add("box-invis");
-    boxArr[i].textContent = "";
-  }
+  console.log("restart gane");
+  if (questionNo > -1) {
+    console.log("restart game if true");
+    qText.textContent = "";
+    selectedCategory = "";
+    document.querySelector("body").style.backgroundColor = "#FF414D";
+    for (i = 0; i < boxArr.length; i++) {
+      boxArr[i].classList.add("box-invis");
+      boxArr[i].textContent = "";
+    }
 
-  restartBtn.classList.remove("box-invis");
-  restartBtn.addEventListener("click", function () {
-    document.location.reload();
-    qText.textContent = "Welcome to Bean Trivia";
-    restartBtn.classList.add("box-invis");
-    document.querySelector("body").style.backgroundColor = "#002d40";
-    categoryList();
-    qa.answer = [];
-    qa.question = "";
-    gameLost = false;
-  });
+    restartBtn.classList.remove("box-invis");
+    restartBtn.addEventListener("click", function () {
+      document.location.reload();
+      categoryList();
+      qa.answer = [];
+      qa.question = "";
+      gameLost = false;
+    });
+  }
 }
 
 //put the categories on all 4 boxes, addition of restarting the game.
@@ -90,12 +96,12 @@ function categoryList() {
 
 //find the answer to the question on screen.
 function findAnswer(ans) {
-  if (ans === qa.answer[rapQuestion.answerIdx[questionNo]]) {
-    console.log("The score now is " + score);
-    console.log("The question no now is " + questionNo);
+  console.log("findanswer function");
+  if (gameStart && ans === qa.answer[rapQuestion.answerIdx[questionNo]]) {
+    console.log("Correct answer");
     return true;
   } else {
-    //restartGame();
+    restartGame();
     console.log("NOOOOOOOOOOOOOOOOOOOOOOOOPE");
     return false;
   }
@@ -103,8 +109,7 @@ function findAnswer(ans) {
 
 //makes boxes disappear, reappear with the correct question/answer, and generates the question title text.
 function boxRefresh() {
-  console.log(rapQuestion.q[2]);
-  console.log(rapQuestion.a[2]);
+  console.log("boxrefresh function");
   qa.question = rapQuestion.q[questionNo];
   qa.answer = rapQuestion.a[questionNo];
   setTimeout(function () {
@@ -116,7 +121,7 @@ function boxRefresh() {
         boxArr[i].classList.remove("box");
       }
     }
-  }, 001);
+  }, 0);
 
   setTimeout(function () {
     for (i = 0; i < boxArr.length; i++) {
@@ -125,7 +130,6 @@ function boxRefresh() {
     }
     for (i = 0; i < boxArr.length; i++) {
       boxArr[i].textContent = qa.answer[i];
-      console.log(qa.answer[i]);
     }
     qText.textContent = qa.question;
   }, 500);
@@ -133,63 +137,25 @@ function boxRefresh() {
   console.log(
     "The answer will be: " + qa.answer[rapQuestion.answerIdx[questionNo]]
   );
-
-  box1.addEventListener("click", function (e) {
-    if (findAnswer(e.target.textContent)) {
-      questionNo++;
-      console.log(questionNo);
-      console.log(true);
-      boxRefresh();
-    } else {
-      restartGame();
-    }
-  });
-
-  box2.addEventListener("click", function (e) {
-    if (findAnswer(e.target.textContent)) {
-      questionNo++;
-      console.log(questionNo);
-      console.log(true);
-      boxRefresh();
-    } else {
-      restartGame();
-    }
-  });
-
-  box3.addEventListener("click", function (e) {
-    if (findAnswer(e.target.textContent)) {
-      questionNo++;
-      console.log(questionNo);
-      console.log(true);
-      boxRefresh();
-    } else {
-      restartGame();
-    }
-  });
-  box4.addEventListener("click", function (e) {
-    if (findAnswer(e.target.textContent)) {
-      questionNo++;
-      console.log(questionNo);
-      console.log(true);
-      boxRefresh();
-    } else {
-      restartGame();
-    }
-  });
+  bannerImg.src = rapPhotos[0];
+  instructionBox.classList.add("box-invis");
 }
 
 //Confirm which category was selected and act accordingly.
 function homeBtn(e) {
+  console.log("homebtn function");
   switch (e.target.textContent) {
     case "RAP":
       console.log("Text is currently: " + e.target.textContent);
       selectedCategory = "RAP";
       console.log("Selected category: " + selectedCategory);
       boxRefresh();
+      gameStart = true;
       break;
 
     case "TECH":
       console.log("Not Yet Available.");
+      questionNo++;
       break;
     case "VIDEO GAMES":
       console.log("Not Yet Available.");
@@ -201,7 +167,64 @@ function homeBtn(e) {
 }
 
 //PROGRAM START
+
 box1.addEventListener("click", homeBtn);
 box2.addEventListener("click", homeBtn);
 box3.addEventListener("click", homeBtn);
 box4.addEventListener("click", homeBtn);
+
+box1.addEventListener("click", function (e) {
+  if (e.target.textContent === "RAP") {
+    homeBtn();
+  }
+  console.log("box1 event listener");
+  if (findAnswer(e.target.textContent)) {
+    questionNo++;
+    console.log(questionNo);
+    console.log(true);
+    boxRefresh();
+  } else {
+    console.log("Failed");
+  }
+});
+
+box2.addEventListener("click", function (e) {
+  if (e.target.textContent === "TECH") {
+    homeBtn();
+  }
+  if (findAnswer(e.target.textContent)) {
+    questionNo++;
+    console.log(questionNo);
+    console.log(true);
+    boxRefresh();
+  } else {
+    console.log("Failed");
+  }
+});
+
+box3.addEventListener("click", function (e) {
+  if (e.target.textContent === "VIDEO GAMES") {
+    homeBtn();
+  }
+  if (findAnswer(e.target.textContent)) {
+    questionNo++;
+    console.log(questionNo);
+    console.log(true);
+    boxRefresh();
+  } else {
+    console.log("Failed");
+  }
+});
+box4.addEventListener("click", function (e) {
+  if (e.target.textContent === "HISTORY") {
+    homeBtn();
+  }
+  if (findAnswer(e.target.textContent)) {
+    questionNo++;
+    console.log(questionNo);
+    console.log(true);
+    boxRefresh();
+  } else {
+    console.log("Failed");
+  }
+});
