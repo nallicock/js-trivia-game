@@ -3,7 +3,7 @@ const box2 = document.querySelector("#box2");
 const box3 = document.querySelector("#box3");
 const box4 = document.querySelector("#box4");
 
-let scoreNo = document.querySelector(".score-no");
+let htmlQuestionNo = document.querySelector(".question-no");
 
 let i = 0;
 
@@ -12,31 +12,15 @@ let qText = document.querySelector(".question-text");
 let boxArr = [box1, box2, box3, box4];
 let allBoxes = document.querySelectorAll(".box");
 let score = 0;
-let highScore = 0;
 let questionNo = 0;
+htmlQuestionNo = 1;
 let gameLost = false;
 let restartBtn = document.querySelector(".restartBtn");
 
-function restartGame() {
-  qText.textContent = "";
-  selectedCategory = "";
-  gameLost = true;
-  document.querySelector("body").style.backgroundColor = "#FF414D";
-  for (i = 0; i < boxArr.length; i++) {
-    boxArr[i].classList.add("box-invis");
-    boxArr[i].textContent = "";
-  }
-  restartBtn.classList.remove("box-invis");
-  restartBtn.addEventListener("click", function () {
-    qText.textContent = "Welcome to Bean Trivia";
-    restartBtn.classList.add("box-invis");
-    document.querySelector("body").style.backgroundColor = "#002d40";
-    categoryList();
-  });
-}
-
 let category = ["RAP", "TECH", "VIDEO GAMES", "HISTORY"];
 let selectedCategory = "";
+
+//rap category object
 let rapQuestion = {
   q: [
     [`Who created the song "In Da Club?"`], //0
@@ -70,6 +54,29 @@ const qa = {
   answer: [],
 };
 
+function restartGame() {
+  qText.textContent = "";
+  selectedCategory = "";
+  document.querySelector("body").style.backgroundColor = "#FF414D";
+  for (i = 0; i < boxArr.length; i++) {
+    boxArr[i].classList.add("box-invis");
+    boxArr[i].textContent = "";
+  }
+
+  restartBtn.classList.remove("box-invis");
+  restartBtn.addEventListener("click", function () {
+    document.location.reload();
+    qText.textContent = "Welcome to Bean Trivia";
+    restartBtn.classList.add("box-invis");
+    document.querySelector("body").style.backgroundColor = "#002d40";
+    categoryList();
+    qa.answer = [];
+    qa.question = "";
+    gameLost = false;
+  });
+}
+
+//put the categories on all 4 boxes, addition of restarting the game.
 function categoryList() {
   for (i = 0; i < category.length; i++) {
     boxArr[i].classList.remove("box-invis");
@@ -81,21 +88,23 @@ function categoryList() {
   box4.addEventListener("click", homeBtn);
 }
 
+//find the answer to the question on screen.
 function findAnswer(ans) {
   if (ans === qa.answer[rapQuestion.answerIdx[questionNo]]) {
-    questionNo++;
-    score++;
-    scoreNo.textContent = score;
     console.log("The score now is " + score);
     console.log("The question no now is " + questionNo);
-    boxRefresh();
+    return true;
   } else {
-    restartGame();
+    //restartGame();
+    console.log("NOOOOOOOOOOOOOOOOOOOOOOOOPE");
+    return false;
   }
 }
 
 //makes boxes disappear, reappear with the correct question/answer, and generates the question title text.
 function boxRefresh() {
+  console.log(rapQuestion.q[2]);
+  console.log(rapQuestion.a[2]);
   qa.question = rapQuestion.q[questionNo];
   qa.answer = rapQuestion.a[questionNo];
   setTimeout(function () {
@@ -121,22 +130,55 @@ function boxRefresh() {
     qText.textContent = qa.question;
   }, 500);
 
+  console.log(
+    "The answer will be: " + qa.answer[rapQuestion.answerIdx[questionNo]]
+  );
+
   box1.addEventListener("click", function (e) {
-    findAnswer(e.target.innerHTML);
+    if (findAnswer(e.target.textContent)) {
+      questionNo++;
+      console.log(questionNo);
+      console.log(true);
+      boxRefresh();
+    } else {
+      restartGame();
+    }
   });
 
   box2.addEventListener("click", function (e) {
-    findAnswer(e.target.innerHTML);
+    if (findAnswer(e.target.textContent)) {
+      questionNo++;
+      console.log(questionNo);
+      console.log(true);
+      boxRefresh();
+    } else {
+      restartGame();
+    }
   });
 
   box3.addEventListener("click", function (e) {
-    findAnswer(e.target.innerHTML);
+    if (findAnswer(e.target.textContent)) {
+      questionNo++;
+      console.log(questionNo);
+      console.log(true);
+      boxRefresh();
+    } else {
+      restartGame();
+    }
   });
   box4.addEventListener("click", function (e) {
-    findAnswer(e.target.innerHTML);
+    if (findAnswer(e.target.textContent)) {
+      questionNo++;
+      console.log(questionNo);
+      console.log(true);
+      boxRefresh();
+    } else {
+      restartGame();
+    }
   });
 }
 
+//Confirm which category was selected and act accordingly.
 function homeBtn(e) {
   switch (e.target.textContent) {
     case "RAP":
@@ -158,6 +200,7 @@ function homeBtn(e) {
   }
 }
 
+//PROGRAM START
 box1.addEventListener("click", homeBtn);
 box2.addEventListener("click", homeBtn);
 box3.addEventListener("click", homeBtn);
