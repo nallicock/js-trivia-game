@@ -293,18 +293,27 @@ function findAnswer(ans) {
       if (gameStart && ans === qa.answer[rapQuestion.answerIdx[questionNo]]) {
         console.log("Correct answer");
         return true;
+      } else {
+        restartGame();
+        return false;
       }
       break;
     case "TECH":
       if (gameStart && ans === qa.answer[techQuestion.answerIdx[questionNo]]) {
         console.log("Correct answer");
         return true;
+      } else {
+        restartGame();
+        return false;
       }
       break;
     case "VIDEO GAMES":
       if (gameStart && ans === qa.answer[gameQuestion.answerIdx[questionNo]]) {
         console.log("Correct answer");
         return true;
+      } else {
+        restartGame();
+        return false;
       }
       break;
     case "HISTORY":
@@ -314,16 +323,11 @@ function findAnswer(ans) {
       ) {
         console.log("Correct answer");
         return true;
+      } else {
+        restartGame();
+        return false;
       }
       break;
-  }
-  if (gameStart && ans === qa.answer[historyQuestion.answerIdx[questionNo]]) {
-    console.log("Correct answer");
-    return true;
-  } else {
-    restartGame();
-    console.log("NOOOOOOOOOOOOOOOOOOOOOOOOPE");
-    return false;
   }
 }
 
