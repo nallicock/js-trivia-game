@@ -47,8 +47,30 @@ let techPhotos = [
   "../img/tech/hardware.jpg",
 ];
 
-let gamePhotos = [];
-let historyPhotos = [];
+let gamePhotos = [
+  "../img/games/lol.jpg",
+  "../img/games/infinity.jpg",
+  "../img/games/redring.jpg",
+  "../img/games/game.jpg",
+  "../img/games/money.jpg",
+  "../img/games/prize.jpg",
+  "../img/games/bethesda.jpg",
+  "../img/games/pacman.png",
+  "../img/games/controller.jpg",
+  "../img/games/planet.jpg",
+];
+let historyPhotos = [
+  "../img/history/telephone.jpg",
+  "../img/history/war.jpg",
+  "../img/history/bridge.jpg",
+  "../img/history/abraham.jpg",
+  "../img/history/mona lisa.jpg",
+  "../img/history/beatles.jpg",
+  "../img/history/london.jpg",
+  "../img/history/pearl.jpg",
+  "../img/history/greenland.jpg",
+  "../img/history/fire.jpg",
+];
 let selectedCategory = "";
 
 //RAP questions and answers
@@ -77,7 +99,7 @@ let rapQuestion = {
     ["One Piece", "Dragon Ball Z", "Naruto", "Bleach"], //8
     ["Drake", "Chris Brown", "J. Cole", "Lil Baby"], //9
   ],
-  answerIdx: [0, 2, 2, 3, 1, 1, 2, 2, 1, 2],
+  answerIdx: [0, 2, 2, 3, 1, 1, 2, 2, 1, 2], // if i was to do this again, i'd put strings instead of the index and confirm if the textContent === the string in this array
 };
 
 //TECH questions and answers
@@ -114,63 +136,78 @@ let techQuestion = {
 //VIDEO GAMES questions and answers
 let gameQuestion = {
   q: [
-    [`Who created the company Microsoft?`], //0
-    [`Who was the creator of Apple?`], //1
-    [`Which company created the Playstation 2?`], //2
-    [`Which billion dollar company today is big on Electric Cars?`], //3
-    [`Which of the following is the most annoying?`], //4
-    [`What is the best way to force close an application/process?(Windows)`], //5
-    [`What is the most popular social media platform in 2022?`], //6
+    [`What is the name of the company who created League of Legends?`], //0
+    [`Which game franchise was a massive hit, created by Infinity Ward?`], //1
     [
-      `In Object Oriented Programming, what is the equivalent of a "Blueprint"?`,
-    ], //7
-    [`Which of the following is Software?`], //8
-    [`Which of the following is Hardware?`], //9
+      `For the XBOX 360, was was the name of the red lights indicating a dead console?`,
+    ], //2
+    [`What is the name of the first video game ever created?`], //3 -- pong
+    [`What game had the highest grand prize in an esports event($30,000,000)?`], //4 -- dota
+    [`What is the most played video game of all time?`], //5 -- fortnite
+    [`Bethesda studios is best known for what game series?`], //6 -- the elder scrolls
+    [`What food was the character Pac Man modeled after?`], //7 -- pizza
+    [`Which console is this controller for?`], //8 -- xbox
+    [`What planet is scalable to the size of the Minecraft world?`], //9 -- Neptune
   ],
   a: [
-    ["Michael Jackson", "A$AP ROCKY", "Bill Gates", "Mark Walberg"], //0
-    ["Jennifer Lopez", "Joe Biden", "Brad Pitt", "Steve Jobs"], //1
-    ["Sony", "Atari", "Microsoft", "Bell"], //2
-    ["Toyota", "Honda", "Wikipedia", "Tesla"], //3
-    ["Windows Updates", "My girlfriend's dog", "Flies", "Public Transit"], //4
-    ["Punch Screen", "Restart PC", "Red X", "Task Manager"], //5
-    ["Instagram", "Facebook", "Twitter", "TikTok"], //6
-    ["Inheritance", "Polymorphism", "Arrays", "Classes"], //7
-    ["Keyboard", "Motherboard", "Google Chrome", "Webcam"], //8
-    ["Pinball", "Minesweeper", "Spotify", "Mouse"], //9
+    ["Riot Games", "Activision", "Nintendo", "Sony"], //0
+    ["Battlefield", "Borderlands", "Call of Duty", "VALORANT"], //1
+    ["No Power", "Red Ring of Death", "Red Light", "Sirens"], //2
+    ["Pac Man", "Super Mario", "Pong", "Legend of Zelda"], //3
+    ["DOTA", "League of Legends", "Fortnite", "Star Wars: TIE Fighter"], //4
+    ["League of Legends", "Call of Duty: Warzone", "Roblox", "Fortnite"], //5
+    ["Heroes of the Storm", "The Elder Scrolls", "Donkey Kong", "Roblox"], //6
+    ["Apple", "Pie", "Pizza", "Burger"], //7
+    ["Atari", "Nintendo 64", "PS5", "XBOX"], //8
+    ["Neptune", "Moon", "Earth", "Mars"], //9
   ],
-  answerIdx: [2, 3, 0, 3, 0, 3, 3, 3, 2, 3],
+  answerIdx: [0, 2, 1, 2, 0, 3, 1, 2, 3, 0],
 };
 
 //HISTORY questions and answers
 let historyQuestion = {
   q: [
-    [`Who created the company Microsoft?`], //0
-    [`Who was the creator of Apple?`], //1
-    [`Which company created the Playstation 2?`], //2
-    [`Which billion dollar company today is big on Electric Cars?`], //3
-    [`Which of the following is the most annoying?`], //4
-    [`What is the best way to force close an application/process?(Windows)`], //5
-    [`What is the most popular social media platform in 2022?`], //6
+    [`Who created the telephone?`], //0 -- Alexander Graham Bell
+    [`How many years did the 100 year war last?`], //1 -- 116 years
     [
-      `In Object Oriented Programming, what is the equivalent of a "Blueprint"?`,
-    ], //7
-    [`Which of the following is Software?`], //8
-    [`Which of the following is Hardware?`], //9
+      `Which bridge was the first to be built across the River Thames in London?`,
+    ], //2 -- London Bridge
+    [`Who assassinated Abraham Lincoln?`], //3 -- John Wilkes Booth
+    [`How many times was the Mona Lisa stolen?`], //4 -- Once
+    [`What is the name of the Beatles' debut album?`], //5 -- Please Please Me
+    [`The great fire of London happened in which year?`], //6 -- 1666
+    [`When was Pearl Harbor bombed?`], //7 -- December 7th 1941
+    [`What group of people discovered Greenland?`], //8 -- The Vikings
+    [`Which human ancestor was the first to discover fire?`], //9 -- Homo Erectus
   ],
   a: [
-    ["Michael Jackson", "A$AP ROCKY", "Bill Gates", "Mark Walberg"], //0
-    ["Jennifer Lopez", "Joe Biden", "Brad Pitt", "Steve Jobs"], //1
-    ["Sony", "Atari", "Microsoft", "Bell"], //2
-    ["Toyota", "Honda", "Wikipedia", "Tesla"], //3
-    ["Windows Updates", "My girlfriend's dog", "Flies", "Public Transit"], //4
-    ["Punch Screen", "Restart PC", "Red X", "Task Manager"], //5
-    ["Instagram", "Facebook", "Twitter", "TikTok"], //6
-    ["Inheritance", "Polymorphism", "Arrays", "Classes"], //7
-    ["Keyboard", "Motherboard", "Google Chrome", "Webcam"], //8
-    ["Pinball", "Minesweeper", "Spotify", "Mouse"], //9
+    [
+      "Michael Jackson",
+      "Alexander Graham Bell",
+      "John Wilkes Booth",
+      "Charlie Chaplin",
+    ], //0
+    ["100 years, of course", "80 years", "90 years", "116 years"], //1
+    [
+      "British Bridge",
+      "United Kingdom Road",
+      "London Bridge",
+      "Queen Elizabeth",
+    ], //2
+    ["Barack Obama", "Ezio Auditore", "Joseph Stalin", "John Wilkes Booth"], //3
+    ["What? It was stolen?", "Once", "Three times", "0 times"], //4
+    ["Please Please Me", "Marshall Mathers LP", "Luv is Rage", "The Carter"], //5
+    ["1869", "1950", "1666", "1785"], //6
+    [
+      "February 14 1677",
+      "January 2 1921",
+      "September 20 1915",
+      "December 7 1941",
+    ], //7
+    ["The Shaolin Monks", "The Nuns", "Napolean's Crew", "The Vikings"], //8
+    ["Homo Habilis", "Homo Rudolfensis", "Homo Erectus", "Homo Sapien"], //9
   ],
-  answerIdx: [2, 3, 0, 3, 0, 3, 3, 3, 2, 3],
+  answerIdx: [1, 3, 2, 3, 1, 0, 2, 3, 3, 2],
 };
 
 //object to store the questions and answers...
@@ -206,7 +243,22 @@ function restartGame() {
 
 //when user wins the game, call this function
 function gameWon() {
-  bannerImg.src = "./img/congratulations.jpg";
+  switch (selectedCategory) {
+    case "RAP":
+      bannerImg.src = "./img/tupac.jpg";
+      break;
+    case "TECH":
+      bannerImg.src = "./img/technology.jpg";
+      break;
+
+    case "VIDEO GAMES":
+      bannerImg.src = "./img/gaming.jpg";
+      break;
+
+    case "HISTORY":
+      bannerImg.src = "./img/history.jpg";
+      break;
+  }
   restartBtn.classList.remove("box-invis");
   restartBtn.style.backgroundColor = "#023020";
   document.querySelector("body").style.backgroundColor = " green";
@@ -362,18 +414,19 @@ function homeBtn(e) {
       break;
 
     case "TECH":
-      console.log("Not Yet Available.");
-      console.log("Text is currently: " + e.target.textContent);
       selectedCategory = "TECH";
-      console.log("Selected category: " + selectedCategory);
       boxRefresh();
       gameStart = true;
       break;
     case "VIDEO GAMES":
-      console.log("Not Yet Available.");
+      selectedCategory = "VIDEO GAMES";
+      boxRefresh();
+      gameStart = true;
       break;
     case "HISTORY":
-      console.log("Not Yet Available.");
+      selectedCategory = "HISTORY";
+      boxRefresh();
+      gameStart = true;
       break;
   }
 }
