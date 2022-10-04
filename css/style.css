@@ -1,5 +1,4 @@
 html {
-  border: 10px solid black;
 }
 body {
   background-color: #002d40;
@@ -22,6 +21,7 @@ body {
 }
 
 .hero-banner {
+  height: 500px;
   width: 40%;
   display: flex;
   text-align: center;
@@ -34,6 +34,8 @@ body {
   width: 100%;
   transition: 0.2s;
   border: 5px solid black;
+  min-width: 200px;
+  margin: 0 auto;
 }
 .boxes {
   display: flex;
@@ -82,11 +84,34 @@ body {
 }
 
 .question-text-desc {
-  width: 30%;
+  width: 60%;
   margin: 0 auto;
   background-color: #d9ecf2;
   padding: 10px;
   border-radius: 5px;
   text-align: center;
   font-family: "Roboto", sans-serif;
+}
+
+@media only screen and (max-width: 900px) {
+  .hero-banner {
+    height: 200px;
+  }
+
+  .hero-banner img {
+    margin: 0 auto;
+  }
+
+  .boxes {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .box {
+    flex-direction: column;
+  }
+
+  .question-text-desc {
+    width: 90%;
+  }
 }

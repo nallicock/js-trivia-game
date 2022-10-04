@@ -17,7 +17,6 @@ let boxArr = [box1, box2, box3, box4];
 let allBoxes = document.querySelectorAll(".box");
 let score = 0;
 let questionNo = 0;
-htmlQuestionNo = 1;
 let gameLost = false;
 let restartBtn = document.querySelector(".restartBtn");
 
@@ -52,7 +51,7 @@ let gamePhotos = [];
 let historyPhotos = [];
 let selectedCategory = "";
 
-//rap category object
+//RAP questions and answers
 let rapQuestion = {
   q: [
     [`Who created the song "In Da Club?"`], //0
@@ -81,6 +80,7 @@ let rapQuestion = {
   answerIdx: [0, 2, 2, 3, 1, 1, 2, 2, 1, 2],
 };
 
+//TECH questions and answers
 let techQuestion = {
   q: [
     [`Who created the company Microsoft?`], //0
@@ -111,6 +111,7 @@ let techQuestion = {
   answerIdx: [2, 3, 0, 3, 0, 3, 3, 3, 2, 3],
 };
 
+//VIDEO GAMES questions and answers
 let gameQuestion = {
   q: [
     [`Who created the company Microsoft?`], //0
@@ -141,6 +142,7 @@ let gameQuestion = {
   answerIdx: [2, 3, 0, 3, 0, 3, 3, 3, 2, 3],
 };
 
+//HISTORY questions and answers
 let historyQuestion = {
   q: [
     [`Who created the company Microsoft?`], //0
@@ -171,11 +173,14 @@ let historyQuestion = {
   answerIdx: [2, 3, 0, 3, 0, 3, 3, 3, 2, 3],
 };
 
+//object to store the questions and answers...
 const qa = {
   question: "",
   answer: [],
 };
 
+//when user clicks an incorrect answer, call this function to end and prompt user to
+//restart game
 function restartGame() {
   console.log("restart gane");
   if (questionNo > -1) {
@@ -199,9 +204,11 @@ function restartGame() {
   }
 }
 
+//when user wins the game, call this function
 function gameWon() {
   bannerImg.src = "./img/congratulations.jpg";
   restartBtn.classList.remove("box-invis");
+  restartBtn.style.backgroundColor = "#023020";
   document.querySelector("body").style.backgroundColor = " green";
   qText.textContent =
     "Congratulations! You beat the " + selectedCategory + " category!";
