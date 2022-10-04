@@ -23,17 +23,20 @@ let restartBtn = document.querySelector(".restartBtn");
 
 let category = ["RAP", "TECH", "VIDEO GAMES", "HISTORY"];
 let rapPhotos = [
-  "../img/club.jpg",
-  "../img/ja-rule.png",
-  "../img/eminem.jpg",
-  "../img/migos.jpg",
-  "../img/lilwayne.jpg",
-  "../img/50cent.jpg",
-  "../img/mj.jpg",
-  "../img/LL-COOL-J.jpg",
-  "../img/anime.PNG",
-  "../img/uncle-phil.jpg",
+  "../img/rap/club.jpg",
+  "../img/rap/ja-rule.png",
+  "../img/rap/eminem.jpg",
+  "../img/rap/migos.jpg",
+  "../img/rap/lilwayne.jpg",
+  "../img/rap/50cent.jpg",
+  "../img/rap/mj.jpg",
+  "../img/rap/LL-COOL-J.jpg",
+  "../img/rap/anime.PNG",
+  "../img/rap/uncle-phil.jpg",
 ];
+let techPhotos = [];
+let gamePhotos = [];
+let historyPhotos = [];
 let selectedCategory = "";
 
 //rap category object
@@ -63,6 +66,36 @@ let rapQuestion = {
     ["Drake", "Chris Brown", "J. Cole", "Lil Baby"], //9
   ],
   answerIdx: [0, 2, 2, 3, 1, 1, 2, 2, 1, 2],
+};
+
+let techQuestion = {
+  q: [
+    [`Who created the company Microsoft?`], //0
+    [`Who was the creator of Apple?`], //1
+    [`Which company created the Playstation 2?`], //2
+    [`Which billion dollar company today is big on Electric Cars?`], //3
+    [`Which of the following is the most annoying?`], //4
+    [`What is the best way to force close an application/process?(Windows)`], //5
+    [`What is the most popular social media platform in 2022?`], //6
+    [
+      `In Object Oriented Programming, what is the equivalent of a "Blueprint"?`,
+    ], //7
+    [`Which of the following is Software?`], //8
+    [`Which of the following is Hardware?`], //9
+  ],
+  a: [
+    ["Michael Jackson", "A$AP ROCKY", "Bill Gates", "Mark Walberg"], //0
+    ["Jennifer Lopez", "Joe Biden", "Brad Pitt", "Steve Jobs"], //1
+    ["Sony", "Atari", "Microsoft", "Bell"], //2
+    ["Toyota", "Honda", "Wikipedia", "Tesla"], //3
+    ["Windows Updates", "My girlfriend's dog", "Flies", "Public Transit"], //4
+    ["Punch Screen", "Restart PC", "Red X", "Task Manager"], //5
+    ["Instagram", "Facebook", "Twitter", "TikTok"], //6
+    ["Inheritance", "Polymorphism", "Arrays", "Classes"], //7
+    ["Keyboard", "Motherboard", "Google Chrome", "Webcam"], //8
+    ["Pinball", "Minesweeper", "Spotify", "Mouse"], //9
+  ],
+  answerIdx: [2, 3, 0, 3, 0, 3, 3, 3, 2, 3],
 };
 
 const qa = {
@@ -108,7 +141,20 @@ function categoryList() {
 //find the answer to the question on screen.
 function findAnswer(ans) {
   console.log("findanswer function");
-  if (gameStart && ans === qa.answer[rapQuestion.answerIdx[questionNo]]) {
+  switch (selectedCategory) {
+    case "RAP":
+      if (gameStart && ans === qa.answer[rapQuestion.answerIdx[questionNo]]) {
+        console.log("Correct answer");
+        return true;
+      }
+      break;
+    case "TECH":
+      if (gameStart && ans === qa.answer[techQuestion.answerIdx[questionNo]]) {
+        console.log("Correct answer");
+        return true;
+      }
+  }
+  if (gameStart && ans === qa.answer[techQuestion.answerIdx[questionNo]]) {
     console.log("Correct answer");
     return true;
   } else {
@@ -120,10 +166,28 @@ function findAnswer(ans) {
 
 //makes boxes disappear, reappear with the correct question/answer, and generates the question title text.
 function boxRefresh() {
+  switch (selectedCategory) {
+    case "RAP":
+      qa.question = rapQuestion.q[questionNo];
+      qa.answer = rapQuestion.a[questionNo];
+      break;
+    case "TECH":
+      qa.question = techQuestion.q[questionNo];
+      qa.answer = techQuestion.a[questionNo];
+      break;
+    case "VIDEO GAMES":
+      qa.question = gameQuestion.q[questionNo];
+      qa.answer = gameQuestion.a[questionNo];
+      break;
+    case "HISTORY":
+      qa.question = historyQuestion.q[questionNo];
+      qa.answer = historyQuestion.a[questionNo];
+      break;
+    default:
+      console.log("This isn't even possible LOL... unless...");
+  }
   bannerImg.classList.add("box-invis");
   console.log("boxrefresh function");
-  qa.question = rapQuestion.q[questionNo];
-  qa.answer = rapQuestion.a[questionNo];
   setTimeout(function () {
     console.log("0.5 sec timeout.");
     for (i = 0; i < boxArr.length; i++) {
@@ -146,9 +210,6 @@ function boxRefresh() {
     qText.textContent = qa.question;
   }, 500);
 
-  console.log(
-    "The answer will be: " + qa.answer[rapQuestion.answerIdx[questionNo]]
-  );
   instructionBox.classList.add("box-invis");
   setTimeout(function () {
     bannerImg.src = rapPhotos[questionNo];
@@ -172,7 +233,11 @@ function homeBtn(e) {
 
     case "TECH":
       console.log("Not Yet Available.");
-      questionNo++;
+      console.log("Text is currently: " + e.target.textContent);
+      selectedCategory = "TECH";
+      console.log("Selected category: " + selectedCategory);
+      boxRefresh();
+      gameStart = true;
       break;
     case "VIDEO GAMES":
       console.log("Not Yet Available.");
