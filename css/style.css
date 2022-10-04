@@ -14,6 +14,7 @@ body {
   background-color: #f56a79;
   color: white;
   cursor: pointer;
+  font-family: "Roboto", sans-serif;
 }
 
 .restartImg {
@@ -21,13 +22,17 @@ body {
 }
 
 .hero-banner {
-  margin: 0 auto;
   width: 40%;
+  display: flex;
+  text-align: center;
+  align-items: center;
+  margin: 0 auto;
 }
 
 .hero-banner img {
   height: 500px;
-  width: 800px;
+  width: 100%;
+  transition: 0.2s;
 }
 .boxes {
   display: flex;
@@ -35,6 +40,7 @@ body {
   align-items: center;
   width: 80%;
   margin: 0 auto;
+  font-family: "Roboto", sans-serif;
 }
 .qa {
   display: block;
@@ -49,6 +55,8 @@ body {
   text-align: center;
   transition: 0.3s;
   border-radius: 15px;
+  font-family: "Roboto", sans-serif;
+  text-align: center;
 }
 
 .box-invis {
@@ -68,6 +76,7 @@ body {
 .question-text {
   text-align: center;
   color: white;
+  font-family: "Roboto", sans-serif;
 }
 
 .question-text-desc {
@@ -77,4 +86,5 @@ body {
   padding: 10px;
   border-radius: 5px;
   text-align: center;
+  font-family: "Roboto", sans-serif;
 }

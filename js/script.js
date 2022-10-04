@@ -22,7 +22,18 @@ let gameLost = false;
 let restartBtn = document.querySelector(".restartBtn");
 
 let category = ["RAP", "TECH", "VIDEO GAMES", "HISTORY"];
-let rapPhotos = ["../img/club.jpg"];
+let rapPhotos = [
+  "../img/club.jpg",
+  "../img/ja-rule.png",
+  "../img/eminem.jpg",
+  "../img/migos.jpg",
+  "../img/lilwayne.jpg",
+  "../img/50cent.jpg",
+  "../img/mj.jpg",
+  "../img/LL-COOL-J.jpg",
+  "../img/anime.PNG",
+  "../img/uncle-phil.jpg",
+];
 let selectedCategory = "";
 
 //rap category object
@@ -109,6 +120,7 @@ function findAnswer(ans) {
 
 //makes boxes disappear, reappear with the correct question/answer, and generates the question title text.
 function boxRefresh() {
+  bannerImg.classList.add("box-invis");
   console.log("boxrefresh function");
   qa.question = rapQuestion.q[questionNo];
   qa.answer = rapQuestion.a[questionNo];
@@ -137,8 +149,13 @@ function boxRefresh() {
   console.log(
     "The answer will be: " + qa.answer[rapQuestion.answerIdx[questionNo]]
   );
-  bannerImg.src = rapPhotos[0];
   instructionBox.classList.add("box-invis");
+  setTimeout(function () {
+    bannerImg.src = rapPhotos[questionNo];
+  }, 750);
+  setTimeout(function () {
+    bannerImg.classList.remove("box-invis");
+  }, 800);
 }
 
 //Confirm which category was selected and act accordingly.
@@ -182,7 +199,12 @@ box1.addEventListener("click", function (e) {
     questionNo++;
     console.log(questionNo);
     console.log(true);
-    boxRefresh();
+    if (questionNo === 9) {
+      console.log("Nice");
+      document.querySelector("body").style.backgroundColor = "green";
+    } else {
+      boxRefresh();
+    }
   } else {
     console.log("Failed");
   }
