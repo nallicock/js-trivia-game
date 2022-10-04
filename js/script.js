@@ -34,7 +34,20 @@ let rapPhotos = [
   "../img/rap/anime.PNG",
   "../img/rap/uncle-phil.jpg",
 ];
-let techPhotos = [];
+
+let techPhotos = [
+  "../img/tech/microsoft.jpg",
+  "../img/tech/apple.jpg",
+  "../img/tech/ps2.jpg",
+  "../img/tech/tesla.png",
+  "../img/tech/annoying.jpg",
+  "../img/tech/windows.jpg",
+  "../img/tech/social-media.jpg",
+  "../img/tech/blueprint.jpg",
+  "../img/tech/software.jpg",
+  "../img/tech/hardware.jpg",
+];
+
 let gamePhotos = [];
 let historyPhotos = [];
 let selectedCategory = "";
@@ -98,6 +111,66 @@ let techQuestion = {
   answerIdx: [2, 3, 0, 3, 0, 3, 3, 3, 2, 3],
 };
 
+let gameQuestion = {
+  q: [
+    [`Who created the company Microsoft?`], //0
+    [`Who was the creator of Apple?`], //1
+    [`Which company created the Playstation 2?`], //2
+    [`Which billion dollar company today is big on Electric Cars?`], //3
+    [`Which of the following is the most annoying?`], //4
+    [`What is the best way to force close an application/process?(Windows)`], //5
+    [`What is the most popular social media platform in 2022?`], //6
+    [
+      `In Object Oriented Programming, what is the equivalent of a "Blueprint"?`,
+    ], //7
+    [`Which of the following is Software?`], //8
+    [`Which of the following is Hardware?`], //9
+  ],
+  a: [
+    ["Michael Jackson", "A$AP ROCKY", "Bill Gates", "Mark Walberg"], //0
+    ["Jennifer Lopez", "Joe Biden", "Brad Pitt", "Steve Jobs"], //1
+    ["Sony", "Atari", "Microsoft", "Bell"], //2
+    ["Toyota", "Honda", "Wikipedia", "Tesla"], //3
+    ["Windows Updates", "My girlfriend's dog", "Flies", "Public Transit"], //4
+    ["Punch Screen", "Restart PC", "Red X", "Task Manager"], //5
+    ["Instagram", "Facebook", "Twitter", "TikTok"], //6
+    ["Inheritance", "Polymorphism", "Arrays", "Classes"], //7
+    ["Keyboard", "Motherboard", "Google Chrome", "Webcam"], //8
+    ["Pinball", "Minesweeper", "Spotify", "Mouse"], //9
+  ],
+  answerIdx: [2, 3, 0, 3, 0, 3, 3, 3, 2, 3],
+};
+
+let historyQuestion = {
+  q: [
+    [`Who created the company Microsoft?`], //0
+    [`Who was the creator of Apple?`], //1
+    [`Which company created the Playstation 2?`], //2
+    [`Which billion dollar company today is big on Electric Cars?`], //3
+    [`Which of the following is the most annoying?`], //4
+    [`What is the best way to force close an application/process?(Windows)`], //5
+    [`What is the most popular social media platform in 2022?`], //6
+    [
+      `In Object Oriented Programming, what is the equivalent of a "Blueprint"?`,
+    ], //7
+    [`Which of the following is Software?`], //8
+    [`Which of the following is Hardware?`], //9
+  ],
+  a: [
+    ["Michael Jackson", "A$AP ROCKY", "Bill Gates", "Mark Walberg"], //0
+    ["Jennifer Lopez", "Joe Biden", "Brad Pitt", "Steve Jobs"], //1
+    ["Sony", "Atari", "Microsoft", "Bell"], //2
+    ["Toyota", "Honda", "Wikipedia", "Tesla"], //3
+    ["Windows Updates", "My girlfriend's dog", "Flies", "Public Transit"], //4
+    ["Punch Screen", "Restart PC", "Red X", "Task Manager"], //5
+    ["Instagram", "Facebook", "Twitter", "TikTok"], //6
+    ["Inheritance", "Polymorphism", "Arrays", "Classes"], //7
+    ["Keyboard", "Motherboard", "Google Chrome", "Webcam"], //8
+    ["Pinball", "Minesweeper", "Spotify", "Mouse"], //9
+  ],
+  answerIdx: [2, 3, 0, 3, 0, 3, 3, 3, 2, 3],
+};
+
 const qa = {
   question: "",
   answer: [],
@@ -124,6 +197,21 @@ function restartGame() {
       gameLost = false;
     });
   }
+}
+
+function gameWon() {
+  bannerImg.src = "./img/congratulations.jpg";
+  restartBtn.classList.remove("box-invis");
+  document.querySelector("body").style.backgroundColor = " green";
+  qText.textContent =
+    "Congratulations! You beat the " + selectedCategory + " category!";
+  for (i = 0; i < boxArr.length; i++) {
+    boxArr[i].textContent = "";
+    boxArr[i].classList.add("box-invis");
+  }
+  restartBtn.addEventListener("click", function () {
+    document.location.reload();
+  });
 }
 
 //put the categories on all 4 boxes, addition of restarting the game.
@@ -153,8 +241,24 @@ function findAnswer(ans) {
         console.log("Correct answer");
         return true;
       }
+      break;
+    case "VIDEO GAMES":
+      if (gameStart && ans === qa.answer[gameQuestion.answerIdx[questionNo]]) {
+        console.log("Correct answer");
+        return true;
+      }
+      break;
+    case "HISTORY":
+      if (
+        gameStart &&
+        ans === qa.answer[historyQuestion.answerIdx[questionNo]]
+      ) {
+        console.log("Correct answer");
+        return true;
+      }
+      break;
   }
-  if (gameStart && ans === qa.answer[techQuestion.answerIdx[questionNo]]) {
+  if (gameStart && ans === qa.answer[historyQuestion.answerIdx[questionNo]]) {
     console.log("Correct answer");
     return true;
   } else {
@@ -166,59 +270,78 @@ function findAnswer(ans) {
 
 //makes boxes disappear, reappear with the correct question/answer, and generates the question title text.
 function boxRefresh() {
-  switch (selectedCategory) {
-    case "RAP":
-      qa.question = rapQuestion.q[questionNo];
-      qa.answer = rapQuestion.a[questionNo];
-      break;
-    case "TECH":
-      qa.question = techQuestion.q[questionNo];
-      qa.answer = techQuestion.a[questionNo];
-      break;
-    case "VIDEO GAMES":
-      qa.question = gameQuestion.q[questionNo];
-      qa.answer = gameQuestion.a[questionNo];
-      break;
-    case "HISTORY":
-      qa.question = historyQuestion.q[questionNo];
-      qa.answer = historyQuestion.a[questionNo];
-      break;
-    default:
-      console.log("This isn't even possible LOL... unless...");
-  }
-  bannerImg.classList.add("box-invis");
-  console.log("boxrefresh function");
-  setTimeout(function () {
-    console.log("0.5 sec timeout.");
-    for (i = 0; i < boxArr.length; i++) {
-      boxArr[i].textContent = "";
-      if (boxArr[i].textContent !== selectedCategory) {
-        boxArr[i].classList.add("box-invis");
-        boxArr[i].classList.remove("box");
+  if (questionNo !== 10) {
+    switch (selectedCategory) {
+      case "RAP":
+        qa.question = rapQuestion.q[questionNo];
+        qa.answer = rapQuestion.a[questionNo];
+        break;
+      case "TECH":
+        qa.question = techQuestion.q[questionNo];
+        qa.answer = techQuestion.a[questionNo];
+        break;
+      case "VIDEO GAMES":
+        qa.question = gameQuestion.q[questionNo];
+        qa.answer = gameQuestion.a[questionNo];
+        break;
+      case "HISTORY":
+        qa.question = historyQuestion.q[questionNo];
+        qa.answer = historyQuestion.a[questionNo];
+        break;
+      default:
+        console.log("This isn't even possible LOL... unless...");
+    }
+    bannerImg.classList.add("box-invis");
+    console.log("boxrefresh function");
+    setTimeout(function () {
+      console.log("0.5 sec timeout.");
+      for (i = 0; i < boxArr.length; i++) {
+        boxArr[i].textContent = "";
+        if (boxArr[i].textContent !== selectedCategory) {
+          boxArr[i].classList.add("box-invis");
+          boxArr[i].classList.remove("box");
+        }
       }
-    }
-  }, 0);
+    }, 0);
 
-  setTimeout(function () {
-    for (i = 0; i < boxArr.length; i++) {
-      boxArr[i].classList.add("box");
-      boxArr[i].classList.remove("box-invis");
-    }
-    for (i = 0; i < boxArr.length; i++) {
-      boxArr[i].textContent = qa.answer[i];
-    }
-    qText.textContent = qa.question;
-  }, 500);
+    setTimeout(function () {
+      for (i = 0; i < boxArr.length; i++) {
+        boxArr[i].classList.add("box");
+        boxArr[i].classList.remove("box-invis");
+      }
+      for (i = 0; i < boxArr.length; i++) {
+        boxArr[i].textContent = qa.answer[i];
+      }
+      qText.textContent = qa.question;
+    }, 500);
 
-  instructionBox.classList.add("box-invis");
-  setTimeout(function () {
-    bannerImg.src = rapPhotos[questionNo];
-  }, 750);
-  setTimeout(function () {
-    bannerImg.classList.remove("box-invis");
-  }, 800);
+    instructionBox.classList.add("box-invis");
+    setTimeout(function () {
+      switch (selectedCategory) {
+        case "RAP":
+          bannerImg.src = rapPhotos[questionNo];
+          break;
+        case "TECH":
+          bannerImg.src = techPhotos[questionNo];
+          break;
+        case "VIDEO GAMES":
+          bannerImg.src = gamePhotos[questionNo];
+          break;
+        case "HISTORY":
+          bannerImg.src = historyPhotos[questionNo];
+          break;
+        default:
+          console.log("????");
+          break;
+      }
+    }, 750);
+    setTimeout(function () {
+      bannerImg.classList.remove("box-invis");
+    }, 800);
+  } else {
+    gameWon();
+  }
 }
-
 //Confirm which category was selected and act accordingly.
 function homeBtn(e) {
   console.log("homebtn function");

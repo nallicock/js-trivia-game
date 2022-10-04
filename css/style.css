@@ -30,9 +30,10 @@ body {
 }
 
 .hero-banner img {
-  height: 500px;
+  height: auto;
   width: 100%;
   transition: 0.2s;
+  border: 5px solid black;
 }
 .boxes {
   display: flex;
@@ -77,6 +78,7 @@ body {
   text-align: center;
   color: white;
   font-family: "Roboto", sans-serif;
+  text-decoration: underline;
 }
 
 .question-text-desc {
