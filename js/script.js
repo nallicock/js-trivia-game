@@ -2,6 +2,7 @@ const box1 = document.querySelector("#box1");
 const box2 = document.querySelector("#box2");
 const box3 = document.querySelector("#box3");
 const box4 = document.querySelector("#box4");
+let boxDiv = document.querySelector(".boxes");
 let bannerImg = document.querySelector(".banner-img");
 let instructionBox = document.querySelector(".question-text-desc");
 
@@ -221,6 +222,7 @@ const qa = {
 function restartGame() {
   console.log("restart gane");
   if (questionNo > -1) {
+    boxDiv.classList.add("box-invis");
     console.log("restart game if true");
     qText.textContent = "";
     selectedCategory = "";
@@ -261,6 +263,8 @@ function gameWon() {
   }
   restartBtn.classList.remove("box-invis");
   restartBtn.style.backgroundColor = "#023020";
+  boxDiv.style.backgroundColor = "green";
+  boxDiv.style.border = "green";
   document.querySelector("body").style.backgroundColor = " green";
   qText.textContent =
     "Congratulations! You beat the " + selectedCategory + " category!";
