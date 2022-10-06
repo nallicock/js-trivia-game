@@ -5,6 +5,7 @@ const box4 = document.querySelector("#box4");
 let boxDiv = document.querySelector(".boxes");
 let bannerImg = document.querySelector(".banner-img");
 let instructionBox = document.querySelector(".question-text-desc");
+let containerTitle = document.querySelector(".container-title");
 
 let gameStart = false;
 
@@ -220,6 +221,17 @@ const qa = {
 //when user clicks an incorrect answer, call this function to end and prompt user to
 //restart game
 function restartGame() {
+  boxDiv.style.marginTop = "1000px";
+  restartBtn.style.zIndex = "9999";
+  document.querySelector(".container-title").textContent =
+    "FAILED GAME! RESTART!";
+  instructionBox.textContent =
+    "You made it to question " +
+    (questionNo + 1) +
+    "/10 of " +
+    selectedCategory;
+  instructionBox.style.backgroundColor = "#FF414D";
+  instructionBox.classList.remove("box-invis");
   console.log("restart gane");
   if (questionNo > -1) {
     boxDiv.classList.add("box-invis");
@@ -337,6 +349,8 @@ function findAnswer(ans) {
 
 //makes boxes disappear, reappear with the correct question/answer, and generates the question title text.
 function boxRefresh() {
+  instructionBox.textContent = "";
+  containerTitle.textContent = "Bean Trivia";
   if (questionNo !== 10) {
     switch (selectedCategory) {
       case "RAP":

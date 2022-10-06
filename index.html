@@ -12,29 +12,31 @@
       href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&family=Ubuntu:wght@500&display=swap"
       rel="stylesheet"
     />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Roboto:wght@100;400&family=Silkscreen&family=Ubuntu:wght@500&display=swap"
+      rel="stylesheet"
+    />
   </head>
   <body>
+    <h1 class="container-title">Welcome to Bean Trivia!</h1>
     <div class="container">
       <section class="hero-banner">
+        <h1 class="question-text"></h1>
         <img src="./img/trivia.jpg" alt="" class="banner-img" />
+        <p class="question-text-desc">
+          To play this game, choose a category! After choosing a category you
+          then must answer TEN questions correctly in order to win. If you fail
+          you must restart the entire category.
+        </p>
       </section>
+      <h2 class="restartBtn box-invis">
+        Restart
+        <img src="./img/pngegg.png" alt="RestartCircle" class="restartImg" />
+      </h2>
       <section class="qa">
-        <div class="question">
-          <h1 class="question-text">Welcome to Bean Trivia</h1>
-          <h2 class="restartBtn box-invis">
-            Restart
-            <img
-              src="./img/pngegg.png"
-              alt="RestartCircle"
-              class="restartImg"
-            />
-          </h2>
-          <p class="question-text-desc">
-            To play this game, choose a category! After choosing a category you
-            then must answer TEN questions correctly in order to win. If you
-            fail you must restart the entire category.
-          </p>
-        </div>
+        <div class="question"></div>
         <div class="boxes">
           <div class="box" id="box1">RAP</div>
           <div class="box active" id="box2">TECH</div>
