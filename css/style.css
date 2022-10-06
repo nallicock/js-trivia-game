@@ -1,6 +1,5 @@
 html {
 }
-
 body {
   background-color: #420b2d;
   padding: 10px;
@@ -178,7 +177,7 @@ body {
     float: none;
     width: 80%;
     height: 50%;
-    margin-top: -50px;
+    margin-top: -20px;
     display: block;
     flex-direction: column;
     /* justify-content: center; */
@@ -203,6 +202,6 @@ body {
   }
 
   .restartBtn {
-    margin: 50px auto;
+    margin: 0 auto;
   }
 }
